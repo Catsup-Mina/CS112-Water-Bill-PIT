@@ -1,0 +1,46 @@
+from decimal import *
+getcontext().prec = 5
+
+# Previous and Present meter readings
+Previous = 356
+Present = 388
+
+# Base rates for different consumption brackets (in PHP)
+BaseRate = Decimal('436.80')  # Base charge for the first 10 cubic meters
+TQ = Decimal('698.80')         # Charge for three quarters
+Whole = Decimal('1397.70')      # Charge for whole
+WHalf = Decimal('3494.40')     # Charge for half
+Two = Decimal('8736.00')       # Charge for two
+Three = Decimal('15724.80')     # Charge for three
+Four = Decimal('31449.60')     # Charge for four
+Ten = Decimal('120556.80')      # Charge for ten
+
+# Calculate the cubic meters used
+CuM = Present - Previous
+
+def bracketing():
+    global CuM
+    global BaseRate
+    Amount = BaseRate
+    
+    # Calculate the amount based on the cubic meters used
+    while CuM > 10:
+        if CuM > 41:
+            while CuM >= 41:
+                CuM -= 1
+                Amount += Decimal('72.00')  # Rate for each cubic meter above 41
+        elif CuM > 31:
+            while CuM >= 31:
+                CuM -= 1
+                Amount += Decimal('67.30')  # Rate for each cubic meter above 31
+        elif CuM > 21:
+            while CuM >= 21:
+                CuM -= 1
+                Amount += Decimal('63.70')  # Rate for each cubic meter above 21
+        elif CuM > 11:
+            while CuM >= 11:
+                CuM -= 1
+                Amount += Decimal('61.10')  # Rate for each cubic meter above 11
+            print(CuM)
+            print(Amount)            
+bracketing()
